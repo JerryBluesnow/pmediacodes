@@ -15,6 +15,8 @@ SOURCE = $(wildcard ${G711}/*.c \
 	${G729PCSRC}/*.c \
 	)
 
+SOURCE:= $(shell echo $(SRCS)|sed 's/ /\n/g'|sort|uniq|tr -t '\n' ' ')
+
 INCLUDE_DIRS = -I${INCLUDE}
 
 OBJECT = $(patsubst %.c,%.o,$(SOURCE))
