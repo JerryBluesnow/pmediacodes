@@ -13,14 +13,16 @@ SOURCE = $(wildcard ${G711}/*.c \
 	${G711SRC}/*.c \
 	${G729ARMSRC}/*.c \
 	${G729PCSRC}/*.c \
-	./*.cpp \
 	)
+
+SOURCECPP = $(wildcard ./*.cpp)
 
 #SOURCE:= $(shell echo $(SRCS)|sed 's/ /\n/g'|sort|uniq|tr -t '\n' ' ')
 
 INCLUDE_DIRS = -I${INCLUDE}
 
 OBJECT = $(patsubst %.c,%.o,$(SOURCE))
+CPPOBJECT = $(patsubst %.cpp,%.o,$(SOURCECPP))
 
 CFLAGS += -D __unix__ \
 	-D __unix
@@ -34,7 +36,7 @@ $(TARGET) : $(OBJECT) $(CPPOBJECT)
 	g++ -rdynamic -shared -fPIC -o $@ $^
 
 #生成各个中间文件
-$(OBJECT) : %.o : %.cpp
+$(OBJECT) : %.o : %.c
 	$(CC) -c $(CFLAGS) $< -o $@ $(INCLUDE_DIRS)
 
 #生成各个中间文件
