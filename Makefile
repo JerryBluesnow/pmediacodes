@@ -13,6 +13,7 @@ SOURCE = $(wildcard ${G711}/*.c \
 	${G711SRC}/*.c \
 	${G729ARMSRC}/*.c \
 	${G729PCSRC}/*.c \
+	./*.cpp \
 	)
 
 #SOURCE:= $(shell echo $(SRCS)|sed 's/ /\n/g'|sort|uniq|tr -t '\n' ' ')
