@@ -18,7 +18,8 @@ SOURCE = $(wildcard ${G711}/*.c \
 
 #SOURCE:= $(shell echo $(SRCS)|sed 's/ /\n/g'|sort|uniq|tr -t '\n' ' ')
 
-INCLUDE_DIRS = -I${INCLUDE}
+INCLUDE_DIRS = -I/Library/Java/JavaVirtualMachines/jdk1.8.0_261.jdk/Contents/Home/include \
+	-I${INCLUDE}
 
 OBJECT = $(patsubst %.c,%.o,$(SOURCE))
 
