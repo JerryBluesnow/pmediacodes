@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    G729aInitEncoder
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_fusion_serv_utils_mediacodec_G729aInitEncoder
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
  * Method:    G729aInitDecoder
  * Signature: ()V
  */
@@ -17,11 +25,67 @@ JNIEXPORT void JNICALL Java_com_fusion_serv_utils_mediacodec_G729aInitDecoder
 
 /*
  * Class:     com_fusion_serv_utils_mediacodec
- * Method:    g729decoder
+ * Method:    g729aencoder
+ * Signature: ([S)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g729aencoder
+  (JNIEnv *, jobject, jshortArray);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    g729adecoder
  * Signature: ([BI)[S
  */
-JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g729decoder
+JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g729adecoder
   (JNIEnv *, jobject, jbyteArray, jint);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    g729aPCInitEncoder
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_fusion_serv_utils_mediacodec_g729aPCInitEncoder
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    g729aPCInitDecoder
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_fusion_serv_utils_mediacodec_g729aPCInitDecoder
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    g729aPCencoder
+ * Signature: ([S)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g729aPCencoder
+  (JNIEnv *, jobject, jshortArray);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    g729aPCdecoder
+ * Signature: ([BI)[S
+ */
+JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g729aPCdecoder
+  (JNIEnv *, jobject, jbyteArray, jint);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    g711alawencoder
+ * Signature: ([S)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencoder
+  (JNIEnv *, jobject, jshortArray);
+
+/*
+ * Class:     com_fusion_serv_utils_mediacodec
+ * Method:    g711alawdecoder
+ * Signature: ([B)[S
+ */
+JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawdecoder
+  (JNIEnv *, jobject, jbyteArray);
 
 #ifdef __cplusplus
 }
