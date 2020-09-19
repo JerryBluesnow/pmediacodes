@@ -19,18 +19,21 @@ INCLUDE_DIRS = -I${INCLUDE}
 
 OBJECT = $(patsubst %.c,%.o,$(SOURCE))
 
+CFLAGS += -D __unix__ \
+	-D __unix
+
 #设置最终目标文件
-TARGET = p--mediacodecs.so
+TARGET = ./lib/libpmediacodecs.so
 all : $(TARGET)
 
 #用所有中间文件生成目标文件
 $(TARGET) : $(OBJECT)
-    g++ -rdynamic -shared -fPIC -o $@ $^
+	g++ -rdynamic -shared -fPIC -o $@ $^
 
 #生成各个中间文件
 $(OBJECT) : %.o : %.c
-    $(CC) -c $(CFLAGS) $< -o $@ $(INCLUDE_DIRS)
+	$(CC) -c $(CFLAGS) $< -o $@ $(INCLUDE_DIRS)
 
 .PHONY : clean
 clean :
-    rm -rf $(TARGET) $(OBJECT)
+	rm -rf $(TARGET) $(OBJECT)

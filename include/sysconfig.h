@@ -26,36 +26,12 @@ extern "C" {
 	typedef int				int32;
 	typedef unsigned int	uint32;
 
-	#define	SERVER_INFO_MAXCOUNT	30		//最大服务器端连接数
-
-
 	#include <time.h>
 	#include <stdio.h>     /*标准输入输出定义*/
 	#include <stdlib.h>
 	#include <string.h>
 
 	#include "G711.h"
-	#include "voice_Encoder_Decoder.h"
-
-	extern char ApplicationPath[128];	//软件运行的绝对路径
-	extern char ApplicationName[30];	//软件名称
-	extern char LOGFILE_NAME[128];
-	extern char CONFIGFILE_NAME[128];
-
-	extern struct server_info_struct	server_infos[SERVER_INFO_MAXCOUNT];
-
-	extern int localID;				//电台号
-
-	#define local_project_No		1		//项目编号
-
-	extern int local_version_No;	//系统版本号
-
-	extern int COM_PORTNUM;			//串口号
-
-	extern int UDP_SERV_PORT;		//UDP端口号
-
-	extern int TCP_SERV_PORT;		//TCP端口号
-
 	extern volatile unsigned int local_TX_frequency;
 	extern volatile unsigned int local_RX_frequency;
 	extern volatile unsigned char local_radio_mode;
