@@ -31,12 +31,16 @@ TARGET = ./lib/libpmediacodecs.so
 all : $(TARGET)
 
 #用所有中间文件生成目标文件
-$(TARGET) : $(OBJECT)
+$(TARGET) : $(OBJECT) $(CPPOBJECT)
 	g++ -rdynamic -shared -fPIC -o $@ $^
 
 #生成各个中间文件
-$(OBJECT) : %.o : %.c
+$(OBJECT) : %.o : %.cpp
 	$(CC) -c $(CFLAGS) $< -o $@ $(INCLUDE_DIRS)
+
+#生成各个中间文件
+$(CPPOBJECT) : %.o : %.cpp
+	g++ -c $(CFLAGS) $< -o $@ $(INCLUDE_DIRS)
 
 .PHONY : clean
 clean :
