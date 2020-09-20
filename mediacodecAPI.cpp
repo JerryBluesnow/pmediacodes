@@ -124,7 +124,6 @@ extern "C" JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g
 JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencoder
 (JNIEnv* env, jobject obj, jshortArray bitstream)
 {
-	short lineardata[800 * 8] = { 0 };
 	unsigned char alaw[800 * 8] = { 0 };
 
 	jshort* bitstreamdata = env->GetShortArrayElements(bitstream, NULL);
