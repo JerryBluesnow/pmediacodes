@@ -137,7 +137,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencod
 
 	env->ReleaseShortArrayElements(bitstream, bitstreamdata,0);
 
-	jbyteArray byteArr = env->NewByteArray(size * 8);
+	jbyteArray byteArr = env->NewByteArray(size);
 	jbyte* pbyte = new jbyte[elements_cnt];
 
 	for (int i = 0; i < elements_cnt; i++) {
