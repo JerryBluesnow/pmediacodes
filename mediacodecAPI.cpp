@@ -51,8 +51,6 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g7
 JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g729adecoder
 (JNIEnv* env, jobject obj, jbyteArray bitstream, jint bfi)
 {
-	/* 最多支持 8*100 g729 转linear */
-	/* 最少支持 10 g729 转linear */
 	unsigned char g729data[100 * 8] = { 0 };
 	short linear[800 * 8] = { 0 };
 
@@ -124,6 +122,7 @@ extern "C" JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g
 JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencoder
 (JNIEnv* env, jobject obj, jshortArray bitstream)
 {
+	short lineardata[800 * 8] = { 0 };
 	unsigned char alaw[800 * 8] = { 0 };
 
 	jshort* bitstreamdata = env->GetShortArrayElements(bitstream, NULL);
@@ -132,7 +131,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencod
 	jsize elements_cnt = size;
 	for (int step = 0; step < size; step++)
 	{
-        alaw[step] = linear2alaw((unsigned char)bitstreamdata[step]);
+        alaw[step] = linear2alaw(bitstreamdata[step]);
 	}
 
 	env->ReleaseShortArrayElements(bitstream, bitstreamdata,0);
@@ -156,3 +155,8 @@ JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencod
  */
 extern "C" JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawdecoder
   (JNIEnv *, jobject, jbyteArray);
+
+
+/*
+C:\Users\JerryZhang\source\repos\G729decoder\inc;D:\Program Files\Java\jdk1.8.0_162\include\win32;D:\Program Files\Java\jdk1.8.0_162\include;$(IncludePath)
+*/
