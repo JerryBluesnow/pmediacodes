@@ -15,6 +15,7 @@ typedef short  Word16;
 extern "C" void G729aInitDecoder();
 extern "C" void G729aDecoder(unsigned char* bitstream, Word16* synth_short, int bfi);
 extern "C" unsigned char linear2alaw(short	pcm_val);
+extern "C" short alaw2linear(unsigned char	a_val);
 
 /*
  * Class:     com_fusion_serv_utils_mediacodec
@@ -51,6 +52,8 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g7
 JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g729adecoder
 (JNIEnv* env, jobject obj, jbyteArray bitstream, jint bfi)
 {
+	/* 最多支持 8*100 g729 转linear */
+	/* 最少支持 10 g729 转linear */
 	unsigned char g729data[100 * 8] = { 0 };
 	short linear[800 * 8] = { 0 };
 
@@ -122,7 +125,6 @@ extern "C" JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g
 JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencoder
 (JNIEnv* env, jobject obj, jshortArray bitstream)
 {
-	short lineardata[800 * 8] = { 0 };
 	unsigned char alaw[800 * 8] = { 0 };
 
 	jshort* bitstreamdata = env->GetShortArrayElements(bitstream, NULL);
@@ -131,7 +133,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencod
 	jsize elements_cnt = size;
 	for (int step = 0; step < size; step++)
 	{
-        alaw[step] = linear2alaw(bitstreamdata[step]);
+        alaw[step] = linear2alaw((unsigned char)bitstreamdata[step]);
 	}
 
 	env->ReleaseShortArrayElements(bitstream, bitstreamdata,0);
@@ -153,9 +155,35 @@ JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencod
  * Method:    g711alawdecoder
  * Signature: ([B)[S
  */
-extern "C" JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawdecoder
-  (JNIEnv *, jobject, jbyteArray);
+JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawdecoder
+(JNIEnv*, jobject, jbyteArray bitstream)
+{
+	short lineardata[800 * 8] = { 0 };
+	unsigned char alaw[800 * 8] = { 0 };
 
+	jbyte* bitstreamdata = env->GetByteArrayElements(bitstream, NULL);
+
+	jsize size = env->GetArrayLength(bitstream);
+	jsize elements_cnt = size;
+	for (int step = 0; step < size; step++)
+	{
+		lineardata[step] = alaw2linear((unsigned char)bitstreamdata[step]);
+	}
+
+	env->ReleaseByteArrayElements(bitstream, bitstreamdata, 0);
+
+	jshortArray shorArr = env->NewShortArray(size);
+	jshort* pshort = new jshort[elements_cnt];
+
+	for (int i = 0; i < elements_cnt; i++) {
+		pshort[i] = lineardata[i];
+	}
+
+	env->SetShortArrayRegion(shorArr, 0, elements_cnt, pshort);
+
+	delete[]pshort;
+	return shorArr;
+}
 
 /*
 C:\Users\JerryZhang\source\repos\G729decoder\inc;D:\Program Files\Java\jdk1.8.0_162\include\win32;D:\Program Files\Java\jdk1.8.0_162\include;$(IncludePath)
