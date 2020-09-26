@@ -156,7 +156,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawencod
  * Signature: ([B)[S
  */
 JNIEXPORT jshortArray JNICALL Java_com_fusion_serv_utils_mediacodec_g711alawdecoder
-(JNIEnv*, jobject, jbyteArray bitstream)
+(JNIEnv* env, jobject obj, jbyteArray bitstream)
 {
 	short lineardata[800 * 8] = { 0 };
 	unsigned char alaw[800 * 8] = { 0 };
